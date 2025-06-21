@@ -23,3 +23,6 @@ mongoose.connect(process.env.MONGODB_URI)
     app.listen(PORT, () => console.log(`server is listening at port ${PORT}`));
 })
 .catch(err => console.error('MongoDB connection error:', err));
+
+const todoRoutes = require('./routes/todoRoutes');
+app.use('/api/todos', todoRoutes);
