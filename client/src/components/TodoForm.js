@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+const API_URL = process.env.REACT_APP_API_BASE_URL;
+// console.log('API_URL:', API_URL); // Debugging line to check API_URL
 
 const TodoForm = ({ onAdd }) => {
   const [title, setTitle] = useState('');
@@ -9,7 +11,7 @@ const TodoForm = ({ onAdd }) => {
     if (!title.trim()) return;
 
     try {
-      const res = await axios.post('http://localhost:5000/api/todos', { title });
+      const res = await axios.post(`${API_URL}/todos`, { title });
       onAdd(res.data); // Send the new todo to parent
       setTitle('');
     } catch (err) {

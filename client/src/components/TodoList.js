@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+const API_URL = process.env.REACT_APP_API_BASE_URL;
+// console.log('API_URL:', API_URL); // Debugging line to check API_URL
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
@@ -11,7 +13,7 @@ const TodoList = () => {
 
   const fetchTodos = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/todos');
+      const res = await axios.get(`${API_URL}/todos`);
       setTodos(res.data);
     } catch (err) {
       console.error('Error fetching todos:', err.message);
@@ -20,7 +22,7 @@ const TodoList = () => {
 
   const toggleComplete = async (id, completed) => {
     try {
-      await axios.put(`http://localhost:5000/api/todos/${id}`, { completed: !completed });
+      await axios.put(`${API_URL}/todos/${id}`, { completed: !completed });
       fetchTodos(); // Refresh list
     } catch (err) {
       console.error('Error updating todo:', err.message);
@@ -29,7 +31,7 @@ const TodoList = () => {
 
   const deleteTodo = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/todos/${id}`);
+      await axios.delete(`${API_URL}/todos/${id}`);
       fetchTodos();
     } catch (err) {
       console.error('Error deleting todo:', err.message);
