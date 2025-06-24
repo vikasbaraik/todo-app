@@ -1,10 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const todoController = require('../controllers/todoController');
+const authMiddleware = require('../middleware/authMiddleware');
+const {getTodos, createTodo, updateTodo, deleteTodo} = require('../controllers/todoController');
 
-router.get('/', todoController.getTodos);
-router.post('/', todoController.createTodo);
-router.put('/:id', todoController.updateTodo);
-router.delete('/:id', todoController.deleteTodo);
+// Apply authentication middleware to all routes
+router.use(authMiddleware);
+
+router.get('/', getTodos);
+router.post('/', createTodo);
+router.put('/:id', updateTodo);
+router.delete('/:id', deleteTodo);
 
 module.exports = router;

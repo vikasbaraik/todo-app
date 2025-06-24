@@ -6,6 +6,17 @@ const todoSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    dueDate: Date,
+    priority: {
+        type: String,
+        enum: ['low', 'medium', 'high'],
+        default: 'medium'
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     completed: {
         type: Boolean,
         default: false
