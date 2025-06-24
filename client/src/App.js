@@ -1,15 +1,21 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import TodoForm from './components/TodoForm';
-import TodoList from './components/TodoList';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Signup from './components/Signup';
+import Login from './components/Login';
+import TodoPage from './components/TodoPage';
 
 function App() {
+  const token = localStorage.getItem('token');
   return (
-    <div className="container mt-5">
-      <h1 className="text-center mb-4">MERN ToDo App</h1>
-      <TodoForm onAdd={() => window.location.reload()} />
-      <TodoList />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/todos" element={token ? <TodoPage /> : <Navigate to="/login" />} />
+        <Route path="*" element={<Navigate to="/login" />} />
+      </Routes>
+    </Router>
   );
 }
 
